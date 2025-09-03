@@ -1,0 +1,469 @@
+2025-09-03 19:23:13,321 - tests.conftest - INFO - conftest.py:116 - Configuring pytest environment metadata
+2025-09-03 19:23:13,360 - tests.conftest - INFO - conftest.py:128 - Custom HTML report title set
+2025-09-03 19:23:13,494 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]
+2025-09-03 19:23:13,496 - tests.conftest - INFO - conftest.py:37 - Initializing browser setup...
+2025-09-03 19:23:13,496 - tests.conftest - INFO - conftest.py:38 - Selected Browser: chrome
+2025-09-03 19:23:13,497 - tests.conftest - INFO - conftest.py:39 - Incognito mode enabled: True
+2025-09-03 19:23:13,497 - tests.conftest - INFO - conftest.py:40 - Headless mode enabled: False
+2025-09-03 19:23:13,498 - WDM - INFO - logger.py:11 - ====== WebDriver manager ======
+2025-09-03 19:23:15,488 - WDM - INFO - logger.py:11 - Get LATEST chromedriver version for google-chrome
+2025-09-03 19:23:16,328 - WDM - INFO - logger.py:11 - Get LATEST chromedriver version for google-chrome
+2025-09-03 19:23:16,854 - WDM - INFO - logger.py:11 - Driver [C:\Users\Siva Kumar\.wdm\drivers\chromedriver\win64\140.0.7339.80\chromedriver-win32/chromedriver.exe] found in cache
+2025-09-03 19:23:20,568 - tests.conftest - INFO - conftest.py:68 - Browser initialized successfully and window maximized
+2025-09-03 19:23:20,570 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]
+2025-09-03 19:23:20,571 - tests.test_01_Login - INFO - test_01_Login.py:18 - ===== Starting Test: Login with Various Users =====
+2025-09-03 19:23:20,572 - tests.test_01_Login - INFO - test_01_Login.py:19 - Attempting login with username: standard_user
+2025-09-03 19:23:23,665 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:23:24,085 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:23:24,238 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:23:24,601 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:23:24,601 - tests.test_01_Login - INFO - test_01_Login.py:24 - Login form submitted
+2025-09-03 19:23:24,604 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:23:24,664 - pages.products_page - INFO - products_page.py:35 - Products page title: Products
+2025-09-03 19:23:24,664 - tests.test_01_Login - INFO - test_01_Login.py:40 - User standard_user successfully logged in
+2025-09-03 19:23:24,664 - pages.products_page - INFO - products_page.py:46 - Attempting to log out...
+2025-09-03 19:23:25,480 - pages.products_page - INFO - products_page.py:50 - Logout successful, redirected to login page
+2025-09-03 19:23:25,488 - tests.test_01_Login - INFO - test_01_Login.py:45 - User standard_user successfully logged out
+2025-09-03 19:23:25,489 - tests.test_01_Login - INFO - test_01_Login.py:47 - ===== Test Completed: Login with Various Users =====
+2025-09-03 19:23:25,490 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]
+2025-09-03 19:23:25,493 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]
+2025-09-03 19:23:25,495 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]
+2025-09-03 19:23:25,496 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]
+2025-09-03 19:23:25,498 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]
+2025-09-03 19:23:25,498 - tests.test_01_Login - INFO - test_01_Login.py:18 - ===== Starting Test: Login with Various Users =====
+2025-09-03 19:23:25,498 - tests.test_01_Login - INFO - test_01_Login.py:19 - Attempting login with username: locked_out_user
+2025-09-03 19:23:25,666 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:23:25,816 - pages.login_page - INFO - login_page.py:26 - Entered username: locked_out_user
+2025-09-03 19:23:25,953 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:23:26,094 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:23:26,094 - tests.test_01_Login - INFO - test_01_Login.py:24 - Login form submitted
+2025-09-03 19:23:26,154 - pages.login_page - WARNING - login_page.py:40 - Login error displayed: Epic sadface: Sorry, this user has been locked out.
+2025-09-03 19:23:26,154 - tests.test_01_Login - INFO - test_01_Login.py:32 - Locked out user correctly prevented from logging in
+2025-09-03 19:23:26,155 - tests.test_01_Login - INFO - test_01_Login.py:47 - ===== Test Completed: Login with Various Users =====
+2025-09-03 19:23:26,156 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]
+2025-09-03 19:23:26,157 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]
+2025-09-03 19:23:26,158 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]
+2025-09-03 19:23:26,158 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]
+2025-09-03 19:23:26,159 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]
+2025-09-03 19:23:26,160 - tests.test_01_Login - INFO - test_01_Login.py:18 - ===== Starting Test: Login with Various Users =====
+2025-09-03 19:23:26,160 - tests.test_01_Login - INFO - test_01_Login.py:19 - Attempting login with username: problem_user
+2025-09-03 19:23:26,221 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:23:26,367 - pages.login_page - INFO - login_page.py:26 - Entered username: problem_user
+2025-09-03 19:23:26,503 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:23:26,650 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:23:26,651 - tests.test_01_Login - INFO - test_01_Login.py:24 - Login form submitted
+2025-09-03 19:23:26,651 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:23:26,688 - pages.products_page - INFO - products_page.py:35 - Products page title: Products
+2025-09-03 19:23:26,688 - tests.test_01_Login - INFO - test_01_Login.py:40 - User problem_user successfully logged in
+2025-09-03 19:23:26,688 - pages.products_page - INFO - products_page.py:46 - Attempting to log out...
+2025-09-03 19:23:27,417 - pages.products_page - INFO - products_page.py:50 - Logout successful, redirected to login page
+2025-09-03 19:23:27,424 - tests.test_01_Login - INFO - test_01_Login.py:45 - User problem_user successfully logged out
+2025-09-03 19:23:27,425 - tests.test_01_Login - INFO - test_01_Login.py:47 - ===== Test Completed: Login with Various Users =====
+2025-09-03 19:23:27,426 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]
+2025-09-03 19:23:27,427 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]
+2025-09-03 19:23:27,428 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]
+2025-09-03 19:23:27,429 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]
+2025-09-03 19:23:27,430 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]
+2025-09-03 19:23:27,430 - tests.test_01_Login - INFO - test_01_Login.py:18 - ===== Starting Test: Login with Various Users =====
+2025-09-03 19:23:27,430 - tests.test_01_Login - INFO - test_01_Login.py:19 - Attempting login with username: performance_glitch_user
+2025-09-03 19:23:27,494 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:23:27,671 - pages.login_page - INFO - login_page.py:26 - Entered username: performance_glitch_user
+2025-09-03 19:23:27,806 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:23:32,934 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:23:32,935 - tests.test_01_Login - INFO - test_01_Login.py:24 - Login form submitted
+2025-09-03 19:23:32,935 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:23:33,004 - pages.products_page - INFO - products_page.py:35 - Products page title: Products
+2025-09-03 19:23:33,005 - tests.test_01_Login - INFO - test_01_Login.py:40 - User performance_glitch_user successfully logged in
+2025-09-03 19:23:33,005 - pages.products_page - INFO - products_page.py:46 - Attempting to log out...
+2025-09-03 19:23:33,788 - pages.products_page - INFO - products_page.py:50 - Logout successful, redirected to login page
+2025-09-03 19:23:33,795 - tests.test_01_Login - INFO - test_01_Login.py:45 - User performance_glitch_user successfully logged out
+2025-09-03 19:23:33,796 - tests.test_01_Login - INFO - test_01_Login.py:47 - ===== Test Completed: Login with Various Users =====
+2025-09-03 19:23:33,797 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]
+2025-09-03 19:23:33,798 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]
+2025-09-03 19:23:33,799 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]
+2025-09-03 19:23:33,800 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials
+2025-09-03 19:23:33,802 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials
+2025-09-03 19:23:33,802 - tests.test_02_Invalid_Login_Credentials - INFO - test_02_Invalid_Login_Credentials.py:15 - ===== Starting Test: Login with Invalid Credentials =====
+2025-09-03 19:23:33,866 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:23:34,018 - pages.login_page - INFO - login_page.py:26 - Entered username: invalid_user
+2025-09-03 19:23:34,159 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:23:34,268 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:23:34,268 - tests.test_02_Invalid_Login_Credentials - INFO - test_02_Invalid_Login_Credentials.py:20 - Submitted invalid login credentials
+2025-09-03 19:23:34,328 - pages.login_page - WARNING - login_page.py:40 - Login error displayed: Epic sadface: Username and password do not match any user in this service
+2025-09-03 19:23:34,328 - tests.test_02_Invalid_Login_Credentials - INFO - test_02_Invalid_Login_Credentials.py:27 - Invalid credentials correctly rejected
+2025-09-03 19:23:34,328 - tests.test_02_Invalid_Login_Credentials - INFO - test_02_Invalid_Login_Credentials.py:29 - ===== Test Completed: Login with Invalid Credentials =====
+2025-09-03 19:23:34,329 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials
+2025-09-03 19:23:34,331 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials
+2025-09-03 19:23:34,332 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials
+2025-09-03 19:23:34,333 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_03_Logout.py::TestLogout::test_logout_functionality
+2025-09-03 19:23:34,334 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:23:34,394 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:23:34,542 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:23:34,681 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:23:34,805 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:23:34,806 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:23:34,817 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:23:34,818 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_03_Logout.py::TestLogout::test_logout_functionality
+2025-09-03 19:23:34,819 - tests.test_03_Logout - INFO - test_03_Logout.py:17 - ===== Starting Test: Logout Functionality =====
+2025-09-03 19:23:34,819 - tests.test_03_Logout - INFO - test_03_Logout.py:21 - User logged in with standard_user credentials
+2025-09-03 19:23:34,857 - pages.products_page - INFO - products_page.py:41 - Cart icon visible: True
+2025-09-03 19:23:34,858 - tests.test_03_Logout - INFO - test_03_Logout.py:25 - Verified cart icon is visible after login
+2025-09-03 19:23:34,858 - pages.products_page - INFO - products_page.py:46 - Attempting to log out...
+2025-09-03 19:23:35,596 - pages.products_page - INFO - products_page.py:50 - Logout successful, redirected to login page
+2025-09-03 19:23:35,597 - tests.test_03_Logout - INFO - test_03_Logout.py:29 - User clicked logout
+2025-09-03 19:23:35,604 - tests.test_03_Logout - INFO - test_03_Logout.py:33 - Logout functionality works correctly
+2025-09-03 19:23:35,604 - tests.test_03_Logout - INFO - test_03_Logout.py:35 - ===== Test Completed: Logout Functionality =====
+2025-09-03 19:23:35,605 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_03_Logout.py::TestLogout::test_logout_functionality
+2025-09-03 19:23:36,456 - pages.products_page - WARNING - products_page.py:59 - Not on Products page. Navigating there first...
+2025-09-03 19:23:47,724 - pages.products_page - WARNING - products_page.py:102 - Element not present within 10 seconds: ('class name', 'title')
+2025-09-03 19:23:47,725 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:23:58,263 - pages.products_page - ERROR - base_page.py:28 - Element ('id', 'react-burger-menu-btn') not found within 10 seconds
+2025-09-03 19:23:58,264 - pages.products_page - WARNING - products_page.py:74 - Reset app state failed: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb8d283+66419]
+	GetHandleVerifier [0x0xb8d2c4+66484]
+	(No symbol) [0x0x964bd3]
+	(No symbol) [0x0x9ae958]
+	(No symbol) [0x0x9aecfb]
+	(No symbol) [0x0x9f5152]
+	(No symbol) [0x0x9d1064]
+	(No symbol) [0x0x9f28a1]
+	(No symbol) [0x0x9d0e16]
+	(No symbol) [0x0x9a25ce]
+	(No symbol) [0x0x9a34a4]
+	GetHandleVerifier [0x0xdd5ec3+2461619]
+	GetHandleVerifier [0x0xdd0f46+2441270]
+	GetHandleVerifier [0x0xbb6222+234258]
+	GetHandleVerifier [0x0xba61e8+168664]
+	GetHandleVerifier [0x0xbad18d+197245]
+	GetHandleVerifier [0x0xb955d8+100040]
+	GetHandleVerifier [0x0xb95772+100450]
+	GetHandleVerifier [0x0xb7f72a+10266]
+	BaseThreadInitThunk [0x0x75046839+25]
+	RtlGetFullPathName_UEx [0x0x7732906f+1215]
+	RtlGetFullPathName_UEx [0x0x7732903d+1165]
+. Trying simple reset...
+2025-09-03 19:23:58,264 - pages.products_page - INFO - products_page.py:80 - Performing simple reset (logout + login)...
+2025-09-03 19:23:58,264 - pages.products_page - INFO - products_page.py:46 - Attempting to log out...
+2025-09-03 19:24:08,799 - pages.products_page - ERROR - base_page.py:28 - Element ('id', 'react-burger-menu-btn') not found within 10 seconds
+2025-09-03 19:24:08,799 - pages.products_page - ERROR - products_page.py:90 - Simple reset failed: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb8d283+66419]
+	GetHandleVerifier [0x0xb8d2c4+66484]
+	(No symbol) [0x0x964bd3]
+	(No symbol) [0x0x9ae958]
+	(No symbol) [0x0x9aecfb]
+	(No symbol) [0x0x9f5152]
+	(No symbol) [0x0x9d1064]
+	(No symbol) [0x0x9f28a1]
+	(No symbol) [0x0x9d0e16]
+	(No symbol) [0x0x9a25ce]
+	(No symbol) [0x0x9a34a4]
+	GetHandleVerifier [0x0xdd5ec3+2461619]
+	GetHandleVerifier [0x0xdd0f46+2441270]
+	GetHandleVerifier [0x0xbb6222+234258]
+	GetHandleVerifier [0x0xba61e8+168664]
+	GetHandleVerifier [0x0xbad18d+197245]
+	GetHandleVerifier [0x0xb955d8+100040]
+	GetHandleVerifier [0x0xb95772+100450]
+	GetHandleVerifier [0x0xb7f72a+10266]
+	BaseThreadInitThunk [0x0x75046839+25]
+	RtlGetFullPathName_UEx [0x0x7732906f+1215]
+	RtlGetFullPathName_UEx [0x0x7732903d+1165]
+
+2025-09-03 19:24:08,800 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:24:08,801 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_03_Logout.py::TestLogout::test_logout_functionality
+2025-09-03 19:24:08,802 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_03_Logout.py::TestLogout::test_logout_functionality
+2025-09-03 19:24:08,803 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility
+2025-09-03 19:24:08,804 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:24:08,916 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:24:09,077 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:24:09,218 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:24:09,345 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:24:09,345 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:24:09,359 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:24:09,360 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility
+2025-09-03 19:24:09,361 - tests.test_04_cart_visibility - INFO - test_04_cart_visibility.py:13 - ===== Starting Test: Cart Icon Visibility =====
+2025-09-03 19:24:09,362 - tests.test_04_cart_visibility - INFO - test_04_cart_visibility.py:15 - User logged in with standard_user credentials
+2025-09-03 19:24:09,397 - pages.products_page - INFO - products_page.py:41 - Cart icon visible: True
+2025-09-03 19:24:09,397 - tests.test_04_cart_visibility - INFO - test_04_cart_visibility.py:19 - Cart icon is visible as expected
+2025-09-03 19:24:09,397 - tests.test_04_cart_visibility - INFO - test_04_cart_visibility.py:21 - ===== Test Completed: Cart Icon Visibility =====
+2025-09-03 19:24:09,398 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility
+2025-09-03 19:24:09,413 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:24:20,627 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:24:20,683 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:24:20,683 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:24:20,683 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:24:20,684 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:24:20,685 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility
+2025-09-03 19:24:20,686 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility
+2025-09-03 19:24:20,687 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection
+2025-09-03 19:24:20,688 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:24:20,809 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:24:20,968 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:24:21,128 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:24:21,259 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:24:21,259 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:24:21,275 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:24:21,276 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection
+2025-09-03 19:24:21,278 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:15 - ===== Starting Test: Random Product Selection =====
+2025-09-03 19:24:22,059 - pages.products_page - INFO - products_page.py:184 - Selected random products: [{'name': 'Sauce Labs Backpack', 'price': 29.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.153")>, 'index': 0}, {'name': 'Test.allTheThings() T-Shirt (Red)', 'price': 15.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.158")>, 'index': 5}, {'name': 'Sauce Labs Bolt T-Shirt', 'price': 15.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.155")>, 'index': 2}, {'name': 'Sauce Labs Onesie', 'price': 7.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.157")>, 'index': 4}]
+2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:24 - 4 products selected successfully
+2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:28 - Selected product: Sauce Labs Backpack, Price: $29.99
+2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:28 - Selected product: Test.allTheThings() T-Shirt (Red), Price: $15.99
+2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:28 - Selected product: Sauce Labs Bolt T-Shirt, Price: $15.99
+2025-09-03 19:24:22,060 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:28 - Selected product: Sauce Labs Onesie, Price: $7.99
+2025-09-03 19:24:22,060 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:32 - Random product selection completed successfully
+2025-09-03 19:24:22,060 - tests.test_05_random_selection_data_extraction - INFO - test_05_random_selection_data_extraction.py:34 - ===== Test Completed: Random Product Selection =====
+2025-09-03 19:24:22,062 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection
+2025-09-03 19:24:22,075 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:24:33,251 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:24:33,304 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:24:33,304 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:24:33,304 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:24:33,305 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:24:33,305 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection
+2025-09-03 19:24:33,306 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection
+2025-09-03 19:24:33,308 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart
+2025-09-03 19:24:33,308 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:24:33,390 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:24:33,545 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:24:33,690 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:24:33,816 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:24:33,816 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:24:33,830 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:24:33,832 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart
+2025-09-03 19:24:33,833 - tests.test_06_random_selection_added_to_cart - INFO - test_06_random_selection_added_to_cart.py:12 - ===== Starting Test: Add Products to Cart =====
+2025-09-03 19:24:33,833 - tests.test_06_random_selection_added_to_cart - INFO - test_06_random_selection_added_to_cart.py:17 - Selecting 4 random products to add to cart
+2025-09-03 19:24:34,587 - pages.products_page - INFO - products_page.py:184 - Selected random products: [{'name': 'Sauce Labs Onesie', 'price': 7.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.192")>, 'index': 4}, {'name': 'Sauce Labs Bike Light', 'price': 9.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.189")>, 'index': 1}, {'name': 'Sauce Labs Backpack', 'price': 29.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.188")>, 'index': 0}, {'name': 'Sauce Labs Fleece Jacket', 'price': 49.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.191")>, 'index': 3}]
+2025-09-03 19:24:34,588 - tests.test_06_random_selection_added_to_cart - INFO - test_06_random_selection_added_to_cart.py:21 - Adding 4 products to cart
+2025-09-03 19:24:34,706 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Onesie ($7.99)
+2025-09-03 19:24:34,795 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bike Light ($9.99)
+2025-09-03 19:24:34,882 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Backpack ($29.99)
+2025-09-03 19:24:34,988 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Fleece Jacket ($49.99)
+2025-09-03 19:24:35,042 - pages.products_page - INFO - products_page.py:199 - Cart count: 4
+2025-09-03 19:24:35,094 - pages.products_page - INFO - products_page.py:199 - Cart count: 4
+2025-09-03 19:24:35,094 - tests.test_06_random_selection_added_to_cart - INFO - test_06_random_selection_added_to_cart.py:31 - Cart count after adding products: 4
+2025-09-03 19:24:35,094 - tests.test_06_random_selection_added_to_cart - INFO - test_06_random_selection_added_to_cart.py:34 - ===== Test Passed: Products successfully added to cart =====
+2025-09-03 19:24:35,095 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart
+2025-09-03 19:24:35,110 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:24:46,279 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:24:46,330 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:24:46,330 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:24:46,331 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:24:46,331 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:24:46,332 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart
+2025-09-03 19:24:46,332 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart
+2025-09-03 19:24:46,334 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details
+2025-09-03 19:24:46,335 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:24:46,433 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:24:46,595 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:24:46,735 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:24:46,873 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:24:46,873 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:24:46,885 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:24:46,886 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details
+2025-09-03 19:24:46,887 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:12 - ===== Starting Test: Validate Cart Details =====
+2025-09-03 19:24:46,887 - tests.test_07_random_selection_verify_details_on_cart - WARNING - test_07_random_selection_verify_details_on_cart.py:17 - No products found in session, selecting 2 products to add
+2025-09-03 19:24:47,304 - pages.products_page - INFO - products_page.py:184 - Selected random products: [{'name': 'Sauce Labs Bolt T-Shirt', 'price': 15.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.229")>, 'index': 2}, {'name': 'Sauce Labs Bike Light', 'price': 9.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.228")>, 'index': 1}]
+2025-09-03 19:24:47,423 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bolt T-Shirt ($15.99)
+2025-09-03 19:24:47,514 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bike Light ($9.99)
+2025-09-03 19:24:47,568 - pages.products_page - INFO - products_page.py:199 - Cart count: 2
+2025-09-03 19:24:47,569 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:25 - Navigating to cart page
+2025-09-03 19:24:47,569 - pages.products_page - INFO - products_page.py:206 - Navigating to Cart page...
+2025-09-03 19:24:47,736 - pages.cart_page - INFO - cart_page.py:29 - Cart page title: Your Cart
+2025-09-03 19:24:47,736 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:33 - Cart page title: Your Cart
+2025-09-03 19:24:47,773 - pages.cart_page - INFO - cart_page.py:52 - Found 2 cart items
+2025-09-03 19:24:47,773 - pages.cart_page - INFO - cart_page.py:40 - Cart items are visible on the page
+2025-09-03 19:24:47,804 - pages.cart_page - INFO - cart_page.py:52 - Found 2 cart items
+2025-09-03 19:24:47,804 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:41 - Number of items in cart: 2
+2025-09-03 19:24:47,860 - pages.cart_page - INFO - cart_page.py:65 - Cart item names: ['Sauce Labs Bolt T-Shirt', 'Sauce Labs Bike Light']
+2025-09-03 19:24:47,917 - pages.cart_page - INFO - cart_page.py:78 - Cart item prices: [15.99, 9.99]
+2025-09-03 19:24:47,917 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:47 - Cart item names: ['Sauce Labs Bolt T-Shirt', 'Sauce Labs Bike Light']
+2025-09-03 19:24:47,917 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:48 - Cart item prices: [15.99, 9.99]
+2025-09-03 19:24:47,917 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:57 - Validating product in cart: {'name': 'Sauce Labs Bolt T-Shirt', 'price': 15.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.229")>, 'index': 2}
+2025-09-03 19:24:47,918 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:57 - Validating product in cart: {'name': 'Sauce Labs Bike Light', 'price': 9.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.228")>, 'index': 1}
+2025-09-03 19:24:47,918 - tests.test_07_random_selection_verify_details_on_cart - INFO - test_07_random_selection_verify_details_on_cart.py:61 - ===== Test Passed: Cart details validated successfully =====
+2025-09-03 19:24:47,919 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details
+2025-09-03 19:24:48,680 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:24:59,844 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:24:59,894 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:24:59,895 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:24:59,895 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:24:59,895 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:24:59,896 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details
+2025-09-03 19:24:59,897 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details
+2025-09-03 19:24:59,898 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout
+2025-09-03 19:24:59,899 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:24:59,984 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:25:00,151 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:25:00,286 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:25:00,409 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:25:00,409 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:25:00,421 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:25:00,422 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout
+2025-09-03 19:25:00,423 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:12 - ===== Starting Test: Complete Checkout =====
+2025-09-03 19:25:00,423 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:16 - Navigated to Products page as Standard User
+2025-09-03 19:25:00,424 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:20 - No products selected yet, choosing 2 random products
+2025-09-03 19:25:00,838 - pages.products_page - INFO - products_page.py:184 - Selected random products: [{'name': 'Sauce Labs Bolt T-Shirt', 'price': 15.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.D56C082B17F24B5D5F973C565373E83F.e.277")>, 'index': 2}, {'name': 'Sauce Labs Bike Light', 'price': 9.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.D56C082B17F24B5D5F973C565373E83F.e.276")>, 'index': 1}]
+2025-09-03 19:25:00,926 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bolt T-Shirt ($15.99)
+2025-09-03 19:25:01,014 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bike Light ($9.99)
+2025-09-03 19:25:01,014 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:23 - Added products to cart: ['Sauce Labs Bolt T-Shirt', 'Sauce Labs Bike Light']
+2025-09-03 19:25:01,015 - pages.products_page - INFO - products_page.py:206 - Navigating to Cart page...
+2025-09-03 19:25:01,130 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:27 - Navigated to Cart page
+2025-09-03 19:25:01,251 - pages.cart_page - INFO - cart_page.py:89 - Clicked on Checkout button
+2025-09-03 19:25:01,258 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:34 - Proceeded to Checkout page
+2025-09-03 19:25:01,262 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:42 - Using checkout data: {'first_name': 'John', 'last_name': 'Doe', 'postal_code': '12345'}
+2025-09-03 19:25:01,418 - pages.checkout_page - INFO - checkout_page.py:35 - Entered first name: John
+2025-09-03 19:25:01,557 - pages.checkout_page - INFO - checkout_page.py:38 - Entered last name: Doe
+2025-09-03 19:25:01,713 - pages.checkout_page - INFO - checkout_page.py:41 - Entered postal code: 12345
+2025-09-03 19:25:01,713 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:50 - Filled in checkout details
+2025-09-03 19:25:01,853 - pages.checkout_page - INFO - checkout_page.py:48 - Clicked Continue button on checkout page
+2025-09-03 19:25:01,853 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:54 - Navigated to Checkout: Overview page
+2025-09-03 19:25:01,889 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:60 - Verified Overview page title successfully
+2025-09-03 19:25:02,100 - pages.checkout_page - INFO - base_page.py:167 - Screenshot saved: C:\Users\Siva Kumar\Desktop\FinalProject_3_Saucedemo-Automation\reports\screenshots\order_summary_20250903_192501.png
+2025-09-03 19:25:02,100 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:64 - Captured screenshot of order summary
+2025-09-03 19:25:02,226 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:68 - Clicked Finish button to place order
+2025-09-03 19:25:02,229 - pages.order_complete_page - INFO - order_complete_page.py:17 - Order Complete Page initialized
+2025-09-03 19:25:02,268 - pages.order_complete_page - INFO - order_complete_page.py:24 - Order completion header: Thank you for your order!
+2025-09-03 19:25:02,268 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:76 - Order completed successfully and verified confirmation message
+2025-09-03 19:25:02,269 - tests.test_08_random_selection_complete_checkout - INFO - test_08_random_selection_complete_checkout.py:78 - ===== Test Completed: Complete Checkout =====
+2025-09-03 19:25:02,270 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout
+2025-09-03 19:25:02,696 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:25:13,852 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:25:13,910 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:25:13,910 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:25:13,910 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:25:13,911 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:25:13,911 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout
+2025-09-03 19:25:13,912 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout
+2025-09-03 19:25:13,914 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality
+2025-09-03 19:25:13,915 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:25:14,000 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:25:14,170 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:25:14,321 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:25:14,458 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:25:14,458 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:25:14,472 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:25:14,474 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality
+2025-09-03 19:25:14,474 - tests.test_09_sort_products - INFO - test_09_sort_products.py:18 - ===== Starting Test: Sorting Functionality =====
+2025-09-03 19:25:14,475 - tests.test_09_sort_products - INFO - test_09_sort_products.py:20 - User logged in successfully, navigating to products page
+2025-09-03 19:25:14,629 - pages.products_page - INFO - products_page.py:151 - Product names: ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
+2025-09-03 19:25:14,630 - tests.test_09_sort_products - INFO - test_09_sort_products.py:26 - Verified sorting by Name (A to Z)
+2025-09-03 19:25:14,777 - pages.products_page - INFO - products_page.py:225 - Sort option selected: Name (Z to A)
+2025-09-03 19:25:14,935 - pages.products_page - INFO - products_page.py:151 - Product names: ['Test.allTheThings() T-Shirt (Red)', 'Sauce Labs Onesie', 'Sauce Labs Fleece Jacket', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Bike Light', 'Sauce Labs Backpack']
+2025-09-03 19:25:14,936 - tests.test_09_sort_products - INFO - test_09_sort_products.py:33 - Verified sorting by Name (Z to A)
+2025-09-03 19:25:15,051 - pages.products_page - INFO - products_page.py:225 - Sort option selected: Price (low to high)
+2025-09-03 19:25:15,206 - pages.products_page - INFO - products_page.py:158 - Product prices: [7.99, 9.99, 15.99, 15.99, 29.99, 49.99]
+2025-09-03 19:25:15,207 - tests.test_09_sort_products - INFO - test_09_sort_products.py:40 - Verified sorting by Price (low to high)
+2025-09-03 19:25:15,322 - pages.products_page - INFO - products_page.py:225 - Sort option selected: Price (high to low)
+2025-09-03 19:25:15,476 - pages.products_page - INFO - products_page.py:158 - Product prices: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+2025-09-03 19:25:15,477 - tests.test_09_sort_products - INFO - test_09_sort_products.py:47 - Verified sorting by Price (high to low)
+2025-09-03 19:25:15,477 - tests.test_09_sort_products - INFO - test_09_sort_products.py:49 - All sorting options validated successfully
+2025-09-03 19:25:15,477 - tests.test_09_sort_products - INFO - test_09_sort_products.py:50 - ===== Test Completed: Sorting Functionality =====
+2025-09-03 19:25:15,478 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality
+2025-09-03 19:25:15,492 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:25:26,723 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:25:26,776 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:25:26,777 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:25:26,777 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:25:26,777 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:25:26,778 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality
+2025-09-03 19:25:26,778 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality
+2025-09-03 19:25:26,780 - tests.conftest - INFO - conftest.py:133 - Starting test execution: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state
+2025-09-03 19:25:26,780 - tests.conftest - INFO - conftest.py:83 - Attempting login as standard_user
+2025-09-03 19:25:26,895 - pages.login_page - INFO - login_page.py:19 - Navigated to SauceDemo login page
+2025-09-03 19:25:27,059 - pages.login_page - INFO - login_page.py:26 - Entered username: standard_user
+2025-09-03 19:25:27,204 - pages.login_page - INFO - login_page.py:29 - Entered password: [HIDDEN]
+2025-09-03 19:25:27,339 - pages.login_page - INFO - login_page.py:32 - Clicked Login button
+2025-09-03 19:25:27,339 - pages.products_page - INFO - products_page.py:30 - Products Page initialized
+2025-09-03 19:25:27,355 - tests.conftest - INFO - conftest.py:93 - Login successful - Products page loaded
+2025-09-03 19:25:27,357 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state
+2025-09-03 19:25:27,358 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:12 - ===== Starting Test: Reset App State =====
+2025-09-03 19:25:27,358 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:17 - Selecting 2 random products before reset test
+2025-09-03 19:25:27,805 - pages.products_page - INFO - products_page.py:184 - Selected random products: [{'name': 'Sauce Labs Bolt T-Shirt', 'price': 15.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.BEC7C78634C369EABD4419F1B5CA49BC.e.382")>, 'index': 2}, {'name': 'Sauce Labs Bike Light', 'price': 9.99, 'element': <selenium.webdriver.remote.webelement.WebElement (session="947b80f30f8808bf5a56f68c23edc345", element="f.20FCC27C46429D008C2D2E29AEE1D53E.d.BEC7C78634C369EABD4419F1B5CA49BC.e.381")>, 'index': 1}]
+2025-09-03 19:25:27,806 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:20 - Adding 2 products to cart before reset
+2025-09-03 19:25:27,918 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bolt T-Shirt ($15.99)
+2025-09-03 19:25:28,009 - pages.products_page - INFO - products_page.py:192 - Added to cart: Sauce Labs Bike Light ($9.99)
+2025-09-03 19:25:28,066 - pages.products_page - INFO - products_page.py:199 - Cart count: 2
+2025-09-03 19:25:28,122 - pages.products_page - INFO - products_page.py:199 - Cart count: 2
+2025-09-03 19:25:28,123 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:30 - Cart count before reset: 2
+2025-09-03 19:25:28,123 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:34 - Performing 'Reset App State'
+2025-09-03 19:25:28,130 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:25:39,311 - pages.products_page - WARNING - products_page.py:126 - Element still visible after 10 seconds: ('class name', 'bm-menu-wrap')
+2025-09-03 19:25:39,366 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:25:39,366 - pages.products_page - INFO - products_page.py:135 - Cart is now empty
+2025-09-03 19:25:39,366 - pages.products_page - INFO - products_page.py:71 - App state reset successfully
+2025-09-03 19:25:39,366 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:37 - Reset App State executed successfully
+2025-09-03 19:25:39,418 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:25:39,470 - pages.products_page - INFO - products_page.py:199 - Cart count: 0
+2025-09-03 19:25:39,470 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:47 - Cart count after reset: 0
+2025-09-03 19:25:39,471 - tests.test_10_reset_app_state - INFO - test_10_reset_app_state.py:50 - ===== Test Passed: Reset App State functionality works correctly =====
+2025-09-03 19:25:39,471 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state
+2025-09-03 19:25:39,485 - pages.products_page - INFO - products_page.py:63 - Opening menu for reset...
+2025-09-03 19:25:40,562 - pages.products_page - WARNING - products_page.py:74 - Reset app state failed: Message: element click intercepted: Element <button type="button" id="react-burger-menu-btn" style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;">...</button> is not clickable at point (30, 30). Other element would receive the click: <div class="bm-menu" style="height: 100%; box-sizing: border-box; overflow: auto;">...</div>
+  (Session info: chrome=140.0.7339.80)
+Stacktrace:
+	GetHandleVerifier [0x0xb8d283+66419]
+	GetHandleVerifier [0x0xb8d2c4+66484]
+	(No symbol) [0x0x964bd3]
+	(No symbol) [0x0x9b4e40]
+	(No symbol) [0x0x9b31a3]
+	(No symbol) [0x0x9b0c57]
+	(No symbol) [0x0x9afedd]
+	(No symbol) [0x0x9a43c5]
+	(No symbol) [0x0x9d101c]
+	(No symbol) [0x0x9a3e24]
+	(No symbol) [0x0x9d11d4]
+	(No symbol) [0x0x9f28a1]
+	(No symbol) [0x0x9d0e16]
+	(No symbol) [0x0x9a25ce]
+	(No symbol) [0x0x9a34a4]
+	GetHandleVerifier [0x0xdd5ec3+2461619]
+	GetHandleVerifier [0x0xdd0f46+2441270]
+	GetHandleVerifier [0x0xbb6222+234258]
+	GetHandleVerifier [0x0xba61e8+168664]
+	GetHandleVerifier [0x0xbad18d+197245]
+	GetHandleVerifier [0x0xb955d8+100040]
+	GetHandleVerifier [0x0xb95772+100450]
+	GetHandleVerifier [0x0xb7f72a+10266]
+	BaseThreadInitThunk [0x0x75046839+25]
+	RtlGetFullPathName_UEx [0x0x7732906f+1215]
+	RtlGetFullPathName_UEx [0x0x7732903d+1165]
+. Trying simple reset...
+2025-09-03 19:25:40,562 - pages.products_page - INFO - products_page.py:80 - Performing simple reset (logout + login)...
+2025-09-03 19:25:40,562 - pages.products_page - INFO - products_page.py:46 - Attempting to log out...
+2025-09-03 19:25:41,688 - pages.products_page - ERROR - products_page.py:90 - Simple reset failed: Message: element click intercepted: Element <button type="button" id="react-burger-menu-btn" style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;">...</button> is not clickable at point (30, 30). Other element would receive the click: <div class="bm-menu" style="height: 100%; box-sizing: border-box; overflow: auto;">...</div>
+  (Session info: chrome=140.0.7339.80)
+Stacktrace:
+	GetHandleVerifier [0x0xb8d283+66419]
+	GetHandleVerifier [0x0xb8d2c4+66484]
+	(No symbol) [0x0x964bd3]
+	(No symbol) [0x0x9b4e40]
+	(No symbol) [0x0x9b31a3]
+	(No symbol) [0x0x9b0c57]
+	(No symbol) [0x0x9afedd]
+	(No symbol) [0x0x9a43c5]
+	(No symbol) [0x0x9d101c]
+	(No symbol) [0x0x9a3e24]
+	(No symbol) [0x0x9d11d4]
+	(No symbol) [0x0x9f28a1]
+	(No symbol) [0x0x9d0e16]
+	(No symbol) [0x0x9a25ce]
+	(No symbol) [0x0x9a34a4]
+	GetHandleVerifier [0x0xdd5ec3+2461619]
+	GetHandleVerifier [0x0xdd0f46+2441270]
+	GetHandleVerifier [0x0xbb6222+234258]
+	GetHandleVerifier [0x0xba61e8+168664]
+	GetHandleVerifier [0x0xbad18d+197245]
+	GetHandleVerifier [0x0xb955d8+100040]
+	GetHandleVerifier [0x0xb95772+100450]
+	GetHandleVerifier [0x0xb7f72a+10266]
+	BaseThreadInitThunk [0x0x75046839+25]
+	RtlGetFullPathName_UEx [0x0x7732906f+1215]
+	RtlGetFullPathName_UEx [0x0x7732903d+1165]
+
+2025-09-03 19:25:41,688 - tests.conftest - INFO - conftest.py:106 - Application state reset successfully
+2025-09-03 19:25:41,688 - tests.conftest - INFO - conftest.py:73 - Closing browser instance
+2025-09-03 19:25:44,189 - tests.conftest - INFO - conftest.py:146 - Test PASSED: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state
+2025-09-03 19:25:48,243 - tests.conftest - INFO - conftest.py:138 - Finished test execution: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state

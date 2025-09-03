@@ -1,0 +1,21 @@
+{
+  "checkout_info": {
+    "first_name": "John",
+    "last_name": "Doe",
+    "postal_code": "12345"
+  },
+  "invalid_users": [
+    {
+      "username": "invalid_user",
+      "password": "invalid_password"
+    },
+    {
+      "username": "",
+      "password": "secret_sauce"
+    },
+    {
+      "username": "standard_user",
+      "password": ""
+    }
+  ]
+}

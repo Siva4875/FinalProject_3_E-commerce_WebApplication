@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title id="head-title">SauceDemo Automation Test Report</title>
+      <style type="text/css">body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  /* do not increase min-width as some may use split screens */
+  min-width: 800px;
+  color: #999;
+}
+
+h1 {
+  font-size: 24px;
+  color: black;
+}
+
+h2 {
+  font-size: 16px;
+  color: black;
+}
+
+p {
+  color: black;
+}
+
+a {
+  color: #999;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/******************************
+ * SUMMARY INFORMATION
+ ******************************/
+#environment td {
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+  vertical-align: top;
+}
+#environment tr:nth-child(odd) {
+  background-color: #f6f6f6;
+}
+#environment ul {
+  margin: 0;
+  padding: 0 20px;
+}
+
+/******************************
+ * TEST RESULT COLORS
+ ******************************/
+span.passed,
+.passed .col-result {
+  color: green;
+}
+
+span.skipped,
+span.xfailed,
+span.rerun,
+.skipped .col-result,
+.xfailed .col-result,
+.rerun .col-result {
+  color: orange;
+}
+
+span.error,
+span.failed,
+span.xpassed,
+.error .col-result,
+.failed .col-result,
+.xpassed .col-result {
+  color: red;
+}
+
+.col-links__extra {
+  margin-right: 3px;
+}
+
+/******************************
+ * RESULTS TABLE
+ *
+ * 1. Table Layout
+ * 2. Extra
+ * 3. Sorting items
+ *
+ ******************************/
+/*------------------
+ * 1. Table Layout
+ *------------------*/
+#results-table {
+  border: 1px solid #e6e6e6;
+  color: #999;
+  font-size: 12px;
+  width: 100%;
+}
+#results-table th,
+#results-table td {
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+  text-align: left;
+}
+#results-table th {
+  font-weight: bold;
+}
+
+/*------------------
+ * 2. Extra
+ *------------------*/
+.logwrapper {
+  max-height: 230px;
+  overflow-y: scroll;
+  background-color: #e6e6e6;
+}
+.logwrapper.expanded {
+  max-height: none;
+}
+.logwrapper.expanded .logexpander:after {
+  content: "collapse [-]";
+}
+.logwrapper .logexpander {
+  z-index: 1;
+  position: sticky;
+  top: 10px;
+  width: max-content;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 5px 7px;
+  margin: 10px 0 10px calc(100% - 80px);
+  cursor: pointer;
+  background-color: #e6e6e6;
+}
+.logwrapper .logexpander:after {
+  content: "expand [+]";
+}
+.logwrapper .logexpander:hover {
+  color: #000;
+  border-color: #000;
+}
+.logwrapper .log {
+  min-height: 40px;
+  position: relative;
+  top: -50px;
+  height: calc(100% + 50px);
+  border: 1px solid #e6e6e6;
+  color: black;
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  padding: 5px;
+  padding-right: 80px;
+  white-space: pre-wrap;
+}
+
+div.media {
+  border: 1px solid #e6e6e6;
+  float: right;
+  height: 240px;
+  margin: 0 5px;
+  overflow: hidden;
+  width: 320px;
+}
+
+.media-container {
+  display: grid;
+  grid-template-columns: 25px auto 25px;
+  align-items: center;
+  flex: 1 1;
+  overflow: hidden;
+  height: 200px;
+}
+
+.media-container--fullscreen {
+  grid-template-columns: 0px auto 0px;
+}
+
+.media-container__nav--right,
+.media-container__nav--left {
+  text-align: center;
+  cursor: pointer;
+}
+
+.media-container__viewport {
+  cursor: pointer;
+  text-align: center;
+  height: inherit;
+}
+.media-container__viewport img,
+.media-container__viewport video {
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
+}
+
+.media__name,
+.media__counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex: 0 0 25px;
+  align-items: center;
+}
+
+.collapsible td:not(.col-links) {
+  cursor: pointer;
+}
+.collapsible td:not(.col-links):hover::after {
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.col-result {
+  width: 130px;
+}
+.col-result:hover::after {
+  content: " (hide details)";
+}
+
+.col-result.collapsed:hover::after {
+  content: " (show details)";
+}
+
+#environment-header h2:hover::after {
+  content: " (hide details)";
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#environment-header.collapsed h2:hover::after {
+  content: " (show details)";
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/*------------------
+ * 3. Sorting items
+ *------------------*/
+.sortable {
+  cursor: pointer;
+}
+.sortable.desc:after {
+  content: " ";
+  position: relative;
+  left: 5px;
+  bottom: -12.5px;
+  border: 10px solid #4caf50;
+  border-bottom: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.sortable.asc:after {
+  content: " ";
+  position: relative;
+  left: 5px;
+  bottom: 12.5px;
+  border: 10px solid #4caf50;
+  border-top: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.hidden, .summary__reload__button.hidden {
+  display: none;
+}
+
+.summary__data {
+  flex: 0 0 550px;
+}
+.summary__reload {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+}
+.summary__reload__button {
+  flex: 0 0 300px;
+  display: flex;
+  color: white;
+  font-weight: bold;
+  background-color: #4caf50;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.summary__reload__button:hover {
+  background-color: #46a049;
+}
+.summary__spacer {
+  flex: 0 0 550px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters,
+.collapse {
+  display: flex;
+  align-items: center;
+}
+.filters button,
+.collapse button {
+  color: #999;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.filters button:hover,
+.collapse button:hover {
+  color: #ccc;
+}
+
+.filter__label {
+  margin-right: 10px;
+}
+
+      </style>
+    
+  </head>
+  <body>
+    <h1 id="title">SauceDemo Automation Test Report</h1>
+    <p>Report generated on 03-Sep-2025 at 19:25:48 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+        v4.1.1</p>
+    <div id="environment-header">
+      <h2>Environment</h2>
+    </div>
+    <table id="environment"></table>
+    <!-- TEMPLATES -->
+      <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="4">No results found. Check the filters.</th>
+        </tr>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="4">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                  <div class="media-container__nav--left"><</div>
+                  <div class="media-container__viewport">
+                    <img src="" />
+                    <video controls>
+                      <source src="" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="media-container__nav--right">></div>
+                </div>
+                <div class="media__name"></div>
+                <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">13 tests took 00:02:31.</p>
+        <p class="filter">(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden" onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to get the latest results!</div>
+          </div>
+        </div>
+        <div class="summary__spacer"></div>
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed" disabled/>
+            <span class="failed">0 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed" />
+            <span class="passed">13 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped" disabled/>
+            <span class="skipped">0 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed" disabled/>
+            <span class="xfailed">0 Expected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed" disabled/>
+            <span class="xpassed">0 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error" disabled/>
+            <span class="error">0 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun" disabled/>
+            <span class="rerun">0 Reruns</span>
+          </div>
+          <div class="collapse">
+            <button id="show_all_details">Show all details</button>&nbsp;/&nbsp;<button id="hide_all_details">Hide all details</button>
+          </div>
+        </div>
+      </div>
+      <div class="additional-summary summary">
+      </div>
+      <div class="additional-summary postfix">
+      </div>
+    </div>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable" data-column-type="result">Result</th>
+          <th class="sortable" data-column-type="testId">Test</th>
+          <th class="sortable" data-column-type="duration">Duration</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+    </table>
+  </body>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.13.2&#34;, &#34;Platform&#34;: &#34;Windows-11-10.0.22000-SP0&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;8.2.2&#34;, &#34;pluggy&#34;: &#34;1.5.0&#34;}, &#34;Plugins&#34;: {&#34;allure-pytest&#34;: &#34;2.13.5&#34;, &#34;base-url&#34;: &#34;2.1.0&#34;, &#34;html&#34;: &#34;4.1.1&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;, &#34;playwright&#34;: &#34;0.7.0&#34;, &#34;xdist&#34;: &#34;3.6.1&#34;}, &#34;Base URL&#34;: &#34;&#34;}, &#34;tests&#34;: {&#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]&#34;, &#34;duration&#34;: &#34;00:00:12&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:12&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:23:13,494 - tests.conftest - INFO - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]\n2025-09-03 19:23:13,496 - tests.conftest - INFO - Initializing browser setup...\n2025-09-03 19:23:13,496 - tests.conftest - INFO - Selected Browser: chrome\n2025-09-03 19:23:13,497 - tests.conftest - INFO - Incognito mode enabled: True\n2025-09-03 19:23:13,497 - tests.conftest - INFO - Headless mode enabled: False\n2025-09-03 19:23:13,498 - WDM - INFO - ====== WebDriver manager ======\n2025-09-03 19:23:15,488 - WDM - INFO - Get LATEST chromedriver version for google-chrome\n2025-09-03 19:23:16,328 - WDM - INFO - Get LATEST chromedriver version for google-chrome\n2025-09-03 19:23:16,854 - WDM - INFO - Driver [C:\\Users\\Siva Kumar\\.wdm\\drivers\\chromedriver\\win64\\140.0.7339.80\\chromedriver-win32/chromedriver.exe] found in cache\n2025-09-03 19:23:20,568 - tests.conftest - INFO - Browser initialized successfully and window maximized\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:37 Initializing browser setup...\nINFO     tests.conftest:conftest.py:38 Selected Browser: chrome\nINFO     tests.conftest:conftest.py:39 Incognito mode enabled: True\nINFO     tests.conftest:conftest.py:40 Headless mode enabled: False\nINFO     WDM:logger.py:11 ====== WebDriver manager ======\nINFO     WDM:logger.py:11 Get LATEST chromedriver version for google-chrome\nINFO     WDM:logger.py:11 Get LATEST chromedriver version for google-chrome\nINFO     WDM:logger.py:11 Driver [C:\\Users\\Siva Kumar\\.wdm\\drivers\\chromedriver\\win64\\140.0.7339.80\\chromedriver-win32/chromedriver.exe] found in cache\nINFO     tests.conftest:conftest.py:68 Browser initialized successfully and window maximized\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:23:20,570 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]\n2025-09-03 19:23:20,571 - tests.test_01_Login - INFO - ===== Starting Test: Login with Various Users =====\n2025-09-03 19:23:20,572 - tests.test_01_Login - INFO - Attempting login with username: standard_user\n2025-09-03 19:23:23,665 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:23:24,085 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:23:24,238 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:23:24,601 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:23:24,601 - tests.test_01_Login - INFO - Login form submitted\n2025-09-03 19:23:24,604 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:23:24,664 - pages.products_page - INFO - Products page title: Products\n2025-09-03 19:23:24,664 - tests.test_01_Login - INFO - User standard_user successfully logged in\n2025-09-03 19:23:24,664 - pages.products_page - INFO - Attempting to log out...\n2025-09-03 19:23:25,480 - pages.products_page - INFO - Logout successful, redirected to login page\n2025-09-03 19:23:25,488 - tests.test_01_Login - INFO - User standard_user successfully logged out\n2025-09-03 19:23:25,489 - tests.test_01_Login - INFO - ===== Test Completed: Login with Various Users =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_01_Login:test_01_Login.py:18 ===== Starting Test: Login with Various Users =====\nINFO     tests.test_01_Login:test_01_Login.py:19 Attempting login with username: standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     tests.test_01_Login:test_01_Login.py:24 Login form submitted\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     pages.products_page:products_page.py:35 Products page title: Products\nINFO     tests.test_01_Login:test_01_Login.py:40 User standard_user successfully logged in\nINFO     pages.products_page:products_page.py:46 Attempting to log out...\nINFO     pages.products_page:products_page.py:50 Logout successful, redirected to login page\nINFO     tests.test_01_Login:test_01_Login.py:45 User standard_user successfully logged out\nINFO     tests.test_01_Login:test_01_Login.py:47 ===== Test Completed: Login with Various Users =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:23:25,490 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]\n&#34;}], &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]&#34;, &#34;duration&#34;: &#34;659 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;659 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:23:25,493 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]\n2025-09-03 19:23:25,495 - tests.conftest - INFO - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user0]\n2025-09-03 19:23:25,496 - tests.conftest - INFO - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:23:25,498 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]\n2025-09-03 19:23:25,498 - tests.test_01_Login - INFO - ===== Starting Test: Login with Various Users =====\n2025-09-03 19:23:25,498 - tests.test_01_Login - INFO - Attempting login with username: locked_out_user\n2025-09-03 19:23:25,666 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:23:25,816 - pages.login_page - INFO - Entered username: locked_out_user\n2025-09-03 19:23:25,953 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:23:26,094 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:23:26,094 - tests.test_01_Login - INFO - Login form submitted\n2025-09-03 19:23:26,154 - pages.login_page - WARNING - Login error displayed: Epic sadface: Sorry, this user has been locked out.\n2025-09-03 19:23:26,154 - tests.test_01_Login - INFO - Locked out user correctly prevented from logging in\n2025-09-03 19:23:26,155 - tests.test_01_Login - INFO - ===== Test Completed: Login with Various Users =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_01_Login:test_01_Login.py:18 ===== Starting Test: Login with Various Users =====\nINFO     tests.test_01_Login:test_01_Login.py:19 Attempting login with username: locked_out_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: locked_out_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     tests.test_01_Login:test_01_Login.py:24 Login form submitted\nWARNING  pages.login_page:login_page.py:40 Login error displayed: Epic sadface: Sorry, this user has been locked out.\nINFO     tests.test_01_Login:test_01_Login.py:32 Locked out user correctly prevented from logging in\nINFO     tests.test_01_Login:test_01_Login.py:47 ===== Test Completed: Login with Various Users =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:23:26,156 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]\n&#34;}], &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]&#34;, &#34;duration&#34;: &#34;00:00:01&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:01&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:23:26,157 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]\n2025-09-03 19:23:26,158 - tests.conftest - INFO - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user1]\n2025-09-03 19:23:26,158 - tests.conftest - INFO - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:23:26,159 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]\n2025-09-03 19:23:26,160 - tests.test_01_Login - INFO - ===== Starting Test: Login with Various Users =====\n2025-09-03 19:23:26,160 - tests.test_01_Login - INFO - Attempting login with username: problem_user\n2025-09-03 19:23:26,221 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:23:26,367 - pages.login_page - INFO - Entered username: problem_user\n2025-09-03 19:23:26,503 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:23:26,650 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:23:26,651 - tests.test_01_Login - INFO - Login form submitted\n2025-09-03 19:23:26,651 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:23:26,688 - pages.products_page - INFO - Products page title: Products\n2025-09-03 19:23:26,688 - tests.test_01_Login - INFO - User problem_user successfully logged in\n2025-09-03 19:23:26,688 - pages.products_page - INFO - Attempting to log out...\n2025-09-03 19:23:27,417 - pages.products_page - INFO - Logout successful, redirected to login page\n2025-09-03 19:23:27,424 - tests.test_01_Login - INFO - User problem_user successfully logged out\n2025-09-03 19:23:27,425 - tests.test_01_Login - INFO - ===== Test Completed: Login with Various Users =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_01_Login:test_01_Login.py:18 ===== Starting Test: Login with Various Users =====\nINFO     tests.test_01_Login:test_01_Login.py:19 Attempting login with username: problem_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: problem_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     tests.test_01_Login:test_01_Login.py:24 Login form submitted\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     pages.products_page:products_page.py:35 Products page title: Products\nINFO     tests.test_01_Login:test_01_Login.py:40 User problem_user successfully logged in\nINFO     pages.products_page:products_page.py:46 Attempting to log out...\nINFO     pages.products_page:products_page.py:50 Logout successful, redirected to login page\nINFO     tests.test_01_Login:test_01_Login.py:45 User problem_user successfully logged out\nINFO     tests.test_01_Login:test_01_Login.py:47 ===== Test Completed: Login with Various Users =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:23:27,426 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]\n&#34;}], &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]&#34;, &#34;duration&#34;: &#34;00:00:06&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:06&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:23:27,427 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]\n2025-09-03 19:23:27,428 - tests.conftest - INFO - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user2]\n2025-09-03 19:23:27,429 - tests.conftest - INFO - Starting test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:23:27,430 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]\n2025-09-03 19:23:27,430 - tests.test_01_Login - INFO - ===== Starting Test: Login with Various Users =====\n2025-09-03 19:23:27,430 - tests.test_01_Login - INFO - Attempting login with username: performance_glitch_user\n2025-09-03 19:23:27,494 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:23:27,671 - pages.login_page - INFO - Entered username: performance_glitch_user\n2025-09-03 19:23:27,806 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:23:32,934 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:23:32,935 - tests.test_01_Login - INFO - Login form submitted\n2025-09-03 19:23:32,935 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:23:33,004 - pages.products_page - INFO - Products page title: Products\n2025-09-03 19:23:33,005 - tests.test_01_Login - INFO - User performance_glitch_user successfully logged in\n2025-09-03 19:23:33,005 - pages.products_page - INFO - Attempting to log out...\n2025-09-03 19:23:33,788 - pages.products_page - INFO - Logout successful, redirected to login page\n2025-09-03 19:23:33,795 - tests.test_01_Login - INFO - User performance_glitch_user successfully logged out\n2025-09-03 19:23:33,796 - tests.test_01_Login - INFO - ===== Test Completed: Login with Various Users =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_01_Login:test_01_Login.py:18 ===== Starting Test: Login with Various Users =====\nINFO     tests.test_01_Login:test_01_Login.py:19 Attempting login with username: performance_glitch_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: performance_glitch_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     tests.test_01_Login:test_01_Login.py:24 Login form submitted\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     pages.products_page:products_page.py:35 Products page title: Products\nINFO     tests.test_01_Login:test_01_Login.py:40 User performance_glitch_user successfully logged in\nINFO     pages.products_page:products_page.py:46 Attempting to log out...\nINFO     pages.products_page:products_page.py:50 Logout successful, redirected to login page\nINFO     tests.test_01_Login:test_01_Login.py:45 User performance_glitch_user successfully logged out\nINFO     tests.test_01_Login:test_01_Login.py:47 ===== Test Completed: Login with Various Users =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:23:33,797 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]\n&#34;}], &#34;tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials&#34;, &#34;duration&#34;: &#34;529 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;529 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:23:33,798 - tests.conftest - INFO - Test PASSED: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]\n2025-09-03 19:23:33,799 - tests.conftest - INFO - Finished test execution: tests/test_01_Login.py::TestLogin::test_login_with_various_users[user3]\n2025-09-03 19:23:33,800 - tests.conftest - INFO - Starting test execution: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:23:33,802 - tests.conftest - INFO - Test PASSED: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials\n2025-09-03 19:23:33,802 - tests.test_02_Invalid_Login_Credentials - INFO - ===== Starting Test: Login with Invalid Credentials =====\n2025-09-03 19:23:33,866 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:23:34,018 - pages.login_page - INFO - Entered username: invalid_user\n2025-09-03 19:23:34,159 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:23:34,268 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:23:34,268 - tests.test_02_Invalid_Login_Credentials - INFO - Submitted invalid login credentials\n2025-09-03 19:23:34,328 - pages.login_page - WARNING - Login error displayed: Epic sadface: Username and password do not match any user in this service\n2025-09-03 19:23:34,328 - tests.test_02_Invalid_Login_Credentials - INFO - Invalid credentials correctly rejected\n2025-09-03 19:23:34,328 - tests.test_02_Invalid_Login_Credentials - INFO - ===== Test Completed: Login with Invalid Credentials =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_02_Invalid_Login_Credentials:test_02_Invalid_Login_Credentials.py:15 ===== Starting Test: Login with Invalid Credentials =====\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: invalid_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     tests.test_02_Invalid_Login_Credentials:test_02_Invalid_Login_Credentials.py:20 Submitted invalid login credentials\nWARNING  pages.login_page:login_page.py:40 Login error displayed: Epic sadface: Username and password do not match any user in this service\nINFO     tests.test_02_Invalid_Login_Credentials:test_02_Invalid_Login_Credentials.py:27 Invalid credentials correctly rejected\nINFO     tests.test_02_Invalid_Login_Credentials:test_02_Invalid_Login_Credentials.py:29 ===== Test Completed: Login with Invalid Credentials =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:23:34,329 - tests.conftest - INFO - Test PASSED: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials\n&#34;}], &#34;tests/test_03_Logout.py::TestLogout::test_logout_functionality&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_03_Logout.py::TestLogout::test_logout_functionality&#34;, &#34;duration&#34;: &#34;00:00:34&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_03_Logout.py::TestLogout::test_logout_functionality&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:34&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:23:34,331 - tests.conftest - INFO - Test PASSED: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials\n2025-09-03 19:23:34,332 - tests.conftest - INFO - Finished test execution: tests/test_02_Invalid_Login_Credentials.py::TestLoginInvalidCredentials::test_login_with_invalid_credentials\n2025-09-03 19:23:34,333 - tests.conftest - INFO - Starting test execution: tests/test_03_Logout.py::TestLogout::test_logout_functionality\n2025-09-03 19:23:34,334 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:23:34,394 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:23:34,542 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:23:34,681 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:23:34,805 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:23:34,806 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:23:34,817 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:23:34,818 - tests.conftest - INFO - Test PASSED: tests/test_03_Logout.py::TestLogout::test_logout_functionality\n2025-09-03 19:23:34,819 - tests.test_03_Logout - INFO - ===== Starting Test: Logout Functionality =====\n2025-09-03 19:23:34,819 - tests.test_03_Logout - INFO - User logged in with standard_user credentials\n2025-09-03 19:23:34,857 - pages.products_page - INFO - Cart icon visible: True\n2025-09-03 19:23:34,858 - tests.test_03_Logout - INFO - Verified cart icon is visible after login\n2025-09-03 19:23:34,858 - pages.products_page - INFO - Attempting to log out...\n2025-09-03 19:23:35,596 - pages.products_page - INFO - Logout successful, redirected to login page\n2025-09-03 19:23:35,597 - tests.test_03_Logout - INFO - User clicked logout\n2025-09-03 19:23:35,604 - tests.test_03_Logout - INFO - Logout functionality works correctly\n2025-09-03 19:23:35,604 - tests.test_03_Logout - INFO - ===== Test Completed: Logout Functionality =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_03_Logout:test_03_Logout.py:17 ===== Starting Test: Logout Functionality =====\nINFO     tests.test_03_Logout:test_03_Logout.py:21 User logged in with standard_user credentials\nINFO     pages.products_page:products_page.py:41 Cart icon visible: True\nINFO     tests.test_03_Logout:test_03_Logout.py:25 Verified cart icon is visible after login\nINFO     pages.products_page:products_page.py:46 Attempting to log out...\nINFO     pages.products_page:products_page.py:50 Logout successful, redirected to login page\nINFO     tests.test_03_Logout:test_03_Logout.py:29 User clicked logout\nINFO     tests.test_03_Logout:test_03_Logout.py:33 Logout functionality works correctly\nINFO     tests.test_03_Logout:test_03_Logout.py:35 ===== Test Completed: Logout Functionality =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:23:35,605 - tests.conftest - INFO - Test PASSED: tests/test_03_Logout.py::TestLogout::test_logout_functionality\n2025-09-03 19:23:36,456 - pages.products_page - WARNING - Not on Products page. Navigating there first...\n2025-09-03 19:23:47,724 - pages.products_page - WARNING - Element not present within 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;title&amp;#x27;)\n2025-09-03 19:23:47,725 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:23:58,263 - pages.products_page - ERROR - Element (&amp;#x27;id&amp;#x27;, &amp;#x27;react-burger-menu-btn&amp;#x27;) not found within 10 seconds\n2025-09-03 19:23:58,264 - pages.products_page - WARNING - Reset app state failed: Message: \nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9ae958]\n\t(No symbol) [0x0x9aecfb]\n\t(No symbol) [0x0x9f5152]\n\t(No symbol) [0x0x9d1064]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n. Trying simple reset...\n2025-09-03 19:23:58,264 - pages.products_page - INFO - Performing simple reset (logout + login)...\n2025-09-03 19:23:58,264 - pages.products_page - INFO - Attempting to log out...\n2025-09-03 19:24:08,799 - pages.products_page - ERROR - Element (&amp;#x27;id&amp;#x27;, &amp;#x27;react-burger-menu-btn&amp;#x27;) not found within 10 seconds\n2025-09-03 19:24:08,799 - pages.products_page - ERROR - Simple reset failed: Message: \nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9ae958]\n\t(No symbol) [0x0x9aecfb]\n\t(No symbol) [0x0x9f5152]\n\t(No symbol) [0x0x9d1064]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n\n2025-09-03 19:24:08,800 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nWARNING  pages.products_page:products_page.py:59 Not on Products page. Navigating there first...\nWARNING  pages.products_page:products_page.py:102 Element not present within 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;title&amp;#x27;)\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nERROR    pages.products_page:base_page.py:28 Element (&amp;#x27;id&amp;#x27;, &amp;#x27;react-burger-menu-btn&amp;#x27;) not found within 10 seconds\nWARNING  pages.products_page:products_page.py:74 Reset app state failed: Message: \nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9ae958]\n\t(No symbol) [0x0x9aecfb]\n\t(No symbol) [0x0x9f5152]\n\t(No symbol) [0x0x9d1064]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n. Trying simple reset...\nINFO     pages.products_page:products_page.py:80 Performing simple reset (logout + login)...\nINFO     pages.products_page:products_page.py:46 Attempting to log out...\nERROR    pages.products_page:base_page.py:28 Element (&amp;#x27;id&amp;#x27;, &amp;#x27;react-burger-menu-btn&amp;#x27;) not found within 10 seconds\nERROR    pages.products_page:products_page.py:90 Simple reset failed: Message: \nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9ae958]\n\t(No symbol) [0x0x9aecfb]\n\t(No symbol) [0x0x9f5152]\n\t(No symbol) [0x0x9d1064]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility&#34;, &#34;duration&#34;: &#34;00:00:12&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:12&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:24:08,801 - tests.conftest - INFO - Test PASSED: tests/test_03_Logout.py::TestLogout::test_logout_functionality\n2025-09-03 19:24:08,802 - tests.conftest - INFO - Finished test execution: tests/test_03_Logout.py::TestLogout::test_logout_functionality\n2025-09-03 19:24:08,803 - tests.conftest - INFO - Starting test execution: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility\n2025-09-03 19:24:08,804 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:24:08,916 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:24:09,077 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:24:09,218 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:24:09,345 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:24:09,345 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:24:09,359 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:24:09,360 - tests.conftest - INFO - Test PASSED: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility\n2025-09-03 19:24:09,361 - tests.test_04_cart_visibility - INFO - ===== Starting Test: Cart Icon Visibility =====\n2025-09-03 19:24:09,362 - tests.test_04_cart_visibility - INFO - User logged in with standard_user credentials\n2025-09-03 19:24:09,397 - pages.products_page - INFO - Cart icon visible: True\n2025-09-03 19:24:09,397 - tests.test_04_cart_visibility - INFO - Cart icon is visible as expected\n2025-09-03 19:24:09,397 - tests.test_04_cart_visibility - INFO - ===== Test Completed: Cart Icon Visibility =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_04_cart_visibility:test_04_cart_visibility.py:13 ===== Starting Test: Cart Icon Visibility =====\nINFO     tests.test_04_cart_visibility:test_04_cart_visibility.py:15 User logged in with standard_user credentials\nINFO     pages.products_page:products_page.py:41 Cart icon visible: True\nINFO     tests.test_04_cart_visibility:test_04_cart_visibility.py:19 Cart icon is visible as expected\nINFO     tests.test_04_cart_visibility:test_04_cart_visibility.py:21 ===== Test Completed: Cart Icon Visibility =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:24:09,398 - tests.conftest - INFO - Test PASSED: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility\n2025-09-03 19:24:09,413 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:24:20,627 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:24:20,683 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:24:20,683 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:24:20,683 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:24:20,684 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection&#34;, &#34;duration&#34;: &#34;00:00:13&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:13&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:24:20,685 - tests.conftest - INFO - Test PASSED: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility\n2025-09-03 19:24:20,686 - tests.conftest - INFO - Finished test execution: tests/test_04_cart_visibility.py::TestProductsCartIconVisibility::test_cart_icon_visibility\n2025-09-03 19:24:20,687 - tests.conftest - INFO - Starting test execution: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection\n2025-09-03 19:24:20,688 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:24:20,809 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:24:20,968 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:24:21,128 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:24:21,259 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:24:21,259 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:24:21,275 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:24:21,276 - tests.conftest - INFO - Test PASSED: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection\n2025-09-03 19:24:21,278 - tests.test_05_random_selection_data_extraction - INFO - ===== Starting Test: Random Product Selection =====\n2025-09-03 19:24:22,059 - pages.products_page - INFO - Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Backpack&amp;#x27;, &amp;#x27;price&amp;#x27;: 29.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.153&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 0}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Test.allTheThings() T-Shirt (Red)&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.158&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 5}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.155&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;price&amp;#x27;: 7.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.157&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 4}]\n2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - 4 products selected successfully\n2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - Selected product: Sauce Labs Backpack, Price: $29.99\n2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - Selected product: Test.allTheThings() T-Shirt (Red), Price: $15.99\n2025-09-03 19:24:22,059 - tests.test_05_random_selection_data_extraction - INFO - Selected product: Sauce Labs Bolt T-Shirt, Price: $15.99\n2025-09-03 19:24:22,060 - tests.test_05_random_selection_data_extraction - INFO - Selected product: Sauce Labs Onesie, Price: $7.99\n2025-09-03 19:24:22,060 - tests.test_05_random_selection_data_extraction - INFO - Random product selection completed successfully\n2025-09-03 19:24:22,060 - tests.test_05_random_selection_data_extraction - INFO - ===== Test Completed: Random Product Selection =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:15 ===== Starting Test: Random Product Selection =====\nINFO     pages.products_page:products_page.py:184 Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Backpack&amp;#x27;, &amp;#x27;price&amp;#x27;: 29.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.153&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 0}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Test.allTheThings() T-Shirt (Red)&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.158&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 5}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.155&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;price&amp;#x27;: 7.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.106131368D034FBFA738103EE3BB8AA2.e.157&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 4}]\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:24 4 products selected successfully\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:28 Selected product: Sauce Labs Backpack, Price: $29.99\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:28 Selected product: Test.allTheThings() T-Shirt (Red), Price: $15.99\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:28 Selected product: Sauce Labs Bolt T-Shirt, Price: $15.99\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:28 Selected product: Sauce Labs Onesie, Price: $7.99\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:32 Random product selection completed successfully\nINFO     tests.test_05_random_selection_data_extraction:test_05_random_selection_data_extraction.py:34 ===== Test Completed: Random Product Selection =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:24:22,062 - tests.conftest - INFO - Test PASSED: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection\n2025-09-03 19:24:22,075 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:24:33,251 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:24:33,304 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:24:33,304 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:24:33,304 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:24:33,305 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart&#34;, &#34;duration&#34;: &#34;00:00:13&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:13&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:24:33,305 - tests.conftest - INFO - Test PASSED: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection\n2025-09-03 19:24:33,306 - tests.conftest - INFO - Finished test execution: tests/test_05_random_selection_data_extraction.py::TestProductsRandomProductSelection::test_random_product_selection\n2025-09-03 19:24:33,308 - tests.conftest - INFO - Starting test execution: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart\n2025-09-03 19:24:33,308 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:24:33,390 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:24:33,545 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:24:33,690 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:24:33,816 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:24:33,816 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:24:33,830 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:24:33,832 - tests.conftest - INFO - Test PASSED: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart\n2025-09-03 19:24:33,833 - tests.test_06_random_selection_added_to_cart - INFO - ===== Starting Test: Add Products to Cart =====\n2025-09-03 19:24:33,833 - tests.test_06_random_selection_added_to_cart - INFO - Selecting 4 random products to add to cart\n2025-09-03 19:24:34,587 - pages.products_page - INFO - Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;price&amp;#x27;: 7.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.192&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 4}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.189&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Backpack&amp;#x27;, &amp;#x27;price&amp;#x27;: 29.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.188&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 0}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Fleece Jacket&amp;#x27;, &amp;#x27;price&amp;#x27;: 49.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.191&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 3}]\n2025-09-03 19:24:34,588 - tests.test_06_random_selection_added_to_cart - INFO - Adding 4 products to cart\n2025-09-03 19:24:34,706 - pages.products_page - INFO - Added to cart: Sauce Labs Onesie ($7.99)\n2025-09-03 19:24:34,795 - pages.products_page - INFO - Added to cart: Sauce Labs Bike Light ($9.99)\n2025-09-03 19:24:34,882 - pages.products_page - INFO - Added to cart: Sauce Labs Backpack ($29.99)\n2025-09-03 19:24:34,988 - pages.products_page - INFO - Added to cart: Sauce Labs Fleece Jacket ($49.99)\n2025-09-03 19:24:35,042 - pages.products_page - INFO - Cart count: 4\n2025-09-03 19:24:35,094 - pages.products_page - INFO - Cart count: 4\n2025-09-03 19:24:35,094 - tests.test_06_random_selection_added_to_cart - INFO - Cart count after adding products: 4\n2025-09-03 19:24:35,094 - tests.test_06_random_selection_added_to_cart - INFO - ===== Test Passed: Products successfully added to cart =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_06_random_selection_added_to_cart:test_06_random_selection_added_to_cart.py:12 ===== Starting Test: Add Products to Cart =====\nINFO     tests.test_06_random_selection_added_to_cart:test_06_random_selection_added_to_cart.py:17 Selecting 4 random products to add to cart\nINFO     pages.products_page:products_page.py:184 Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;price&amp;#x27;: 7.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.192&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 4}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.189&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Backpack&amp;#x27;, &amp;#x27;price&amp;#x27;: 29.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.188&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 0}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Fleece Jacket&amp;#x27;, &amp;#x27;price&amp;#x27;: 49.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.CFC9FCB829191A325C64E5C9D2DE502E.e.191&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 3}]\nINFO     tests.test_06_random_selection_added_to_cart:test_06_random_selection_added_to_cart.py:21 Adding 4 products to cart\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Onesie ($7.99)\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bike Light ($9.99)\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Backpack ($29.99)\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Fleece Jacket ($49.99)\nINFO     pages.products_page:products_page.py:199 Cart count: 4\nINFO     pages.products_page:products_page.py:199 Cart count: 4\nINFO     tests.test_06_random_selection_added_to_cart:test_06_random_selection_added_to_cart.py:31 Cart count after adding products: 4\nINFO     tests.test_06_random_selection_added_to_cart:test_06_random_selection_added_to_cart.py:34 ===== Test Passed: Products successfully added to cart =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:24:35,095 - tests.conftest - INFO - Test PASSED: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart\n2025-09-03 19:24:35,110 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:24:46,279 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:24:46,330 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:24:46,330 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:24:46,331 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:24:46,331 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details&#34;, &#34;duration&#34;: &#34;00:00:14&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:14&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:24:46,332 - tests.conftest - INFO - Test PASSED: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart\n2025-09-03 19:24:46,332 - tests.conftest - INFO - Finished test execution: tests/test_06_random_selection_added_to_cart.py::TestAddProductsToCart::test_add_products_to_cart\n2025-09-03 19:24:46,334 - tests.conftest - INFO - Starting test execution: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details\n2025-09-03 19:24:46,335 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:24:46,433 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:24:46,595 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:24:46,735 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:24:46,873 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:24:46,873 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:24:46,885 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:24:46,886 - tests.conftest - INFO - Test PASSED: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details\n2025-09-03 19:24:46,887 - tests.test_07_random_selection_verify_details_on_cart - INFO - ===== Starting Test: Validate Cart Details =====\n2025-09-03 19:24:46,887 - tests.test_07_random_selection_verify_details_on_cart - WARNING - No products found in session, selecting 2 products to add\n2025-09-03 19:24:47,304 - pages.products_page - INFO - Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.229&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.228&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}]\n2025-09-03 19:24:47,423 - pages.products_page - INFO - Added to cart: Sauce Labs Bolt T-Shirt ($15.99)\n2025-09-03 19:24:47,514 - pages.products_page - INFO - Added to cart: Sauce Labs Bike Light ($9.99)\n2025-09-03 19:24:47,568 - pages.products_page - INFO - Cart count: 2\n2025-09-03 19:24:47,569 - tests.test_07_random_selection_verify_details_on_cart - INFO - Navigating to cart page\n2025-09-03 19:24:47,569 - pages.products_page - INFO - Navigating to Cart page...\n2025-09-03 19:24:47,736 - pages.cart_page - INFO - Cart page title: Your Cart\n2025-09-03 19:24:47,736 - tests.test_07_random_selection_verify_details_on_cart - INFO - Cart page title: Your Cart\n2025-09-03 19:24:47,773 - pages.cart_page - INFO - Found 2 cart items\n2025-09-03 19:24:47,773 - pages.cart_page - INFO - Cart items are visible on the page\n2025-09-03 19:24:47,804 - pages.cart_page - INFO - Found 2 cart items\n2025-09-03 19:24:47,804 - tests.test_07_random_selection_verify_details_on_cart - INFO - Number of items in cart: 2\n2025-09-03 19:24:47,860 - pages.cart_page - INFO - Cart item names: [&amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;]\n2025-09-03 19:24:47,917 - pages.cart_page - INFO - Cart item prices: [15.99, 9.99]\n2025-09-03 19:24:47,917 - tests.test_07_random_selection_verify_details_on_cart - INFO - Cart item names: [&amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;]\n2025-09-03 19:24:47,917 - tests.test_07_random_selection_verify_details_on_cart - INFO - Cart item prices: [15.99, 9.99]\n2025-09-03 19:24:47,917 - tests.test_07_random_selection_verify_details_on_cart - INFO - Validating product in cart: {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.229&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}\n2025-09-03 19:24:47,918 - tests.test_07_random_selection_verify_details_on_cart - INFO - Validating product in cart: {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.228&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}\n2025-09-03 19:24:47,918 - tests.test_07_random_selection_verify_details_on_cart - INFO - ===== Test Passed: Cart details validated successfully =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:12 ===== Starting Test: Validate Cart Details =====\nWARNING  tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:17 No products found in session, selecting 2 products to add\nINFO     pages.products_page:products_page.py:184 Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.229&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.228&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}]\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bolt T-Shirt ($15.99)\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bike Light ($9.99)\nINFO     pages.products_page:products_page.py:199 Cart count: 2\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:25 Navigating to cart page\nINFO     pages.products_page:products_page.py:206 Navigating to Cart page...\nINFO     pages.cart_page:cart_page.py:29 Cart page title: Your Cart\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:33 Cart page title: Your Cart\nINFO     pages.cart_page:cart_page.py:52 Found 2 cart items\nINFO     pages.cart_page:cart_page.py:40 Cart items are visible on the page\nINFO     pages.cart_page:cart_page.py:52 Found 2 cart items\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:41 Number of items in cart: 2\nINFO     pages.cart_page:cart_page.py:65 Cart item names: [&amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;]\nINFO     pages.cart_page:cart_page.py:78 Cart item prices: [15.99, 9.99]\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:47 Cart item names: [&amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;]\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:48 Cart item prices: [15.99, 9.99]\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:57 Validating product in cart: {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.229&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:57 Validating product in cart: {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.7105C37E717DE949DB64F21025B58C07.e.228&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}\nINFO     tests.test_07_random_selection_verify_details_on_cart:test_07_random_selection_verify_details_on_cart.py:61 ===== Test Passed: Cart details validated successfully =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:24:47,919 - tests.conftest - INFO - Test PASSED: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details\n2025-09-03 19:24:48,680 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:24:59,844 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:24:59,894 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:24:59,895 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:24:59,895 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:24:59,895 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout&#34;, &#34;duration&#34;: &#34;00:00:14&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:14&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:24:59,896 - tests.conftest - INFO - Test PASSED: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details\n2025-09-03 19:24:59,897 - tests.conftest - INFO - Finished test execution: tests/test_07_random_selection_verify_details_on_cart.py::TestValidateCartDetails::test_validate_cart_details\n2025-09-03 19:24:59,898 - tests.conftest - INFO - Starting test execution: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout\n2025-09-03 19:24:59,899 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:24:59,984 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:25:00,151 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:25:00,286 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:25:00,409 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:25:00,409 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:25:00,421 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:25:00,422 - tests.conftest - INFO - Test PASSED: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout\n2025-09-03 19:25:00,423 - tests.test_08_random_selection_complete_checkout - INFO - ===== Starting Test: Complete Checkout =====\n2025-09-03 19:25:00,423 - tests.test_08_random_selection_complete_checkout - INFO - Navigated to Products page as Standard User\n2025-09-03 19:25:00,424 - tests.test_08_random_selection_complete_checkout - INFO - No products selected yet, choosing 2 random products\n2025-09-03 19:25:00,838 - pages.products_page - INFO - Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.D56C082B17F24B5D5F973C565373E83F.e.277&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.D56C082B17F24B5D5F973C565373E83F.e.276&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}]\n2025-09-03 19:25:00,926 - pages.products_page - INFO - Added to cart: Sauce Labs Bolt T-Shirt ($15.99)\n2025-09-03 19:25:01,014 - pages.products_page - INFO - Added to cart: Sauce Labs Bike Light ($9.99)\n2025-09-03 19:25:01,014 - tests.test_08_random_selection_complete_checkout - INFO - Added products to cart: [&amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;]\n2025-09-03 19:25:01,015 - pages.products_page - INFO - Navigating to Cart page...\n2025-09-03 19:25:01,130 - tests.test_08_random_selection_complete_checkout - INFO - Navigated to Cart page\n2025-09-03 19:25:01,251 - pages.cart_page - INFO - Clicked on Checkout button\n2025-09-03 19:25:01,258 - tests.test_08_random_selection_complete_checkout - INFO - Proceeded to Checkout page\n2025-09-03 19:25:01,262 - tests.test_08_random_selection_complete_checkout - INFO - Using checkout data: {&amp;#x27;first_name&amp;#x27;: &amp;#x27;John&amp;#x27;, &amp;#x27;last_name&amp;#x27;: &amp;#x27;Doe&amp;#x27;, &amp;#x27;postal_code&amp;#x27;: &amp;#x27;12345&amp;#x27;}\n2025-09-03 19:25:01,418 - pages.checkout_page - INFO - Entered first name: John\n2025-09-03 19:25:01,557 - pages.checkout_page - INFO - Entered last name: Doe\n2025-09-03 19:25:01,713 - pages.checkout_page - INFO - Entered postal code: 12345\n2025-09-03 19:25:01,713 - tests.test_08_random_selection_complete_checkout - INFO - Filled in checkout details\n2025-09-03 19:25:01,853 - pages.checkout_page - INFO - Clicked Continue button on checkout page\n2025-09-03 19:25:01,853 - tests.test_08_random_selection_complete_checkout - INFO - Navigated to Checkout: Overview page\n2025-09-03 19:25:01,889 - tests.test_08_random_selection_complete_checkout - INFO - Verified Overview page title successfully\n2025-09-03 19:25:02,100 - pages.checkout_page - INFO - Screenshot saved: C:\\Users\\Siva Kumar\\Desktop\\FinalProject_3_Saucedemo-Automation\\reports\\screenshots\\order_summary_20250903_192501.png\n2025-09-03 19:25:02,100 - tests.test_08_random_selection_complete_checkout - INFO - Captured screenshot of order summary\n2025-09-03 19:25:02,226 - tests.test_08_random_selection_complete_checkout - INFO - Clicked Finish button to place order\n2025-09-03 19:25:02,229 - pages.order_complete_page - INFO - Order Complete Page initialized\n2025-09-03 19:25:02,268 - pages.order_complete_page - INFO - Order completion header: Thank you for your order!\n2025-09-03 19:25:02,268 - tests.test_08_random_selection_complete_checkout - INFO - Order completed successfully and verified confirmation message\n2025-09-03 19:25:02,269 - tests.test_08_random_selection_complete_checkout - INFO - ===== Test Completed: Complete Checkout =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:12 ===== Starting Test: Complete Checkout =====\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:16 Navigated to Products page as Standard User\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:20 No products selected yet, choosing 2 random products\nINFO     pages.products_page:products_page.py:184 Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.D56C082B17F24B5D5F973C565373E83F.e.277&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.D56C082B17F24B5D5F973C565373E83F.e.276&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}]\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bolt T-Shirt ($15.99)\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bike Light ($9.99)\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:23 Added products to cart: [&amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;]\nINFO     pages.products_page:products_page.py:206 Navigating to Cart page...\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:27 Navigated to Cart page\nINFO     pages.cart_page:cart_page.py:89 Clicked on Checkout button\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:34 Proceeded to Checkout page\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:42 Using checkout data: {&amp;#x27;first_name&amp;#x27;: &amp;#x27;John&amp;#x27;, &amp;#x27;last_name&amp;#x27;: &amp;#x27;Doe&amp;#x27;, &amp;#x27;postal_code&amp;#x27;: &amp;#x27;12345&amp;#x27;}\nINFO     pages.checkout_page:checkout_page.py:35 Entered first name: John\nINFO     pages.checkout_page:checkout_page.py:38 Entered last name: Doe\nINFO     pages.checkout_page:checkout_page.py:41 Entered postal code: 12345\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:50 Filled in checkout details\nINFO     pages.checkout_page:checkout_page.py:48 Clicked Continue button on checkout page\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:54 Navigated to Checkout: Overview page\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:60 Verified Overview page title successfully\nINFO     pages.checkout_page:base_page.py:167 Screenshot saved: C:\\Users\\Siva Kumar\\Desktop\\FinalProject_3_Saucedemo-Automation\\reports\\screenshots\\order_summary_20250903_192501.png\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:64 Captured screenshot of order summary\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:68 Clicked Finish button to place order\nINFO     pages.order_complete_page:order_complete_page.py:17 Order Complete Page initialized\nINFO     pages.order_complete_page:order_complete_page.py:24 Order completion header: Thank you for your order!\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:76 Order completed successfully and verified confirmation message\nINFO     tests.test_08_random_selection_complete_checkout:test_08_random_selection_complete_checkout.py:78 ===== Test Completed: Complete Checkout =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:25:02,270 - tests.conftest - INFO - Test PASSED: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout\n2025-09-03 19:25:02,696 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:25:13,852 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:25:13,910 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:25:13,910 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:25:13,910 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:25:13,911 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_09_sort_products.py::TestSorting::test_sorting_functionality&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_09_sort_products.py::TestSorting::test_sorting_functionality&#34;, &#34;duration&#34;: &#34;00:00:13&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_09_sort_products.py::TestSorting::test_sorting_functionality&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:13&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:25:13,911 - tests.conftest - INFO - Test PASSED: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout\n2025-09-03 19:25:13,912 - tests.conftest - INFO - Finished test execution: tests/test_08_random_selection_complete_checkout.py::TestCheckout::test_complete_checkout\n2025-09-03 19:25:13,914 - tests.conftest - INFO - Starting test execution: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality\n2025-09-03 19:25:13,915 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:25:14,000 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:25:14,170 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:25:14,321 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:25:14,458 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:25:14,458 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:25:14,472 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:25:14,474 - tests.conftest - INFO - Test PASSED: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality\n2025-09-03 19:25:14,474 - tests.test_09_sort_products - INFO - ===== Starting Test: Sorting Functionality =====\n2025-09-03 19:25:14,475 - tests.test_09_sort_products - INFO - User logged in successfully, navigating to products page\n2025-09-03 19:25:14,629 - pages.products_page - INFO - Product names: [&amp;#x27;Sauce Labs Backpack&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Fleece Jacket&amp;#x27;, &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;Test.allTheThings() T-Shirt (Red)&amp;#x27;]\n2025-09-03 19:25:14,630 - tests.test_09_sort_products - INFO - Verified sorting by Name (A to Z)\n2025-09-03 19:25:14,777 - pages.products_page - INFO - Sort option selected: Name (Z to A)\n2025-09-03 19:25:14,935 - pages.products_page - INFO - Product names: [&amp;#x27;Test.allTheThings() T-Shirt (Red)&amp;#x27;, &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;Sauce Labs Fleece Jacket&amp;#x27;, &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;Sauce Labs Backpack&amp;#x27;]\n2025-09-03 19:25:14,936 - tests.test_09_sort_products - INFO - Verified sorting by Name (Z to A)\n2025-09-03 19:25:15,051 - pages.products_page - INFO - Sort option selected: Price (low to high)\n2025-09-03 19:25:15,206 - pages.products_page - INFO - Product prices: [7.99, 9.99, 15.99, 15.99, 29.99, 49.99]\n2025-09-03 19:25:15,207 - tests.test_09_sort_products - INFO - Verified sorting by Price (low to high)\n2025-09-03 19:25:15,322 - pages.products_page - INFO - Sort option selected: Price (high to low)\n2025-09-03 19:25:15,476 - pages.products_page - INFO - Product prices: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]\n2025-09-03 19:25:15,477 - tests.test_09_sort_products - INFO - Verified sorting by Price (high to low)\n2025-09-03 19:25:15,477 - tests.test_09_sort_products - INFO - All sorting options validated successfully\n2025-09-03 19:25:15,477 - tests.test_09_sort_products - INFO - ===== Test Completed: Sorting Functionality =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_09_sort_products:test_09_sort_products.py:18 ===== Starting Test: Sorting Functionality =====\nINFO     tests.test_09_sort_products:test_09_sort_products.py:20 User logged in successfully, navigating to products page\nINFO     pages.products_page:products_page.py:151 Product names: [&amp;#x27;Sauce Labs Backpack&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Fleece Jacket&amp;#x27;, &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;Test.allTheThings() T-Shirt (Red)&amp;#x27;]\nINFO     tests.test_09_sort_products:test_09_sort_products.py:26 Verified sorting by Name (A to Z)\nINFO     pages.products_page:products_page.py:225 Sort option selected: Name (Z to A)\nINFO     pages.products_page:products_page.py:151 Product names: [&amp;#x27;Test.allTheThings() T-Shirt (Red)&amp;#x27;, &amp;#x27;Sauce Labs Onesie&amp;#x27;, &amp;#x27;Sauce Labs Fleece Jacket&amp;#x27;, &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;Sauce Labs Backpack&amp;#x27;]\nINFO     tests.test_09_sort_products:test_09_sort_products.py:33 Verified sorting by Name (Z to A)\nINFO     pages.products_page:products_page.py:225 Sort option selected: Price (low to high)\nINFO     pages.products_page:products_page.py:158 Product prices: [7.99, 9.99, 15.99, 15.99, 29.99, 49.99]\nINFO     tests.test_09_sort_products:test_09_sort_products.py:40 Verified sorting by Price (low to high)\nINFO     pages.products_page:products_page.py:225 Sort option selected: Price (high to low)\nINFO     pages.products_page:products_page.py:158 Product prices: [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]\nINFO     tests.test_09_sort_products:test_09_sort_products.py:47 Verified sorting by Price (high to low)\nINFO     tests.test_09_sort_products:test_09_sort_products.py:49 All sorting options validated successfully\nINFO     tests.test_09_sort_products:test_09_sort_products.py:50 ===== Test Completed: Sorting Functionality =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:25:15,478 - tests.conftest - INFO - Test PASSED: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality\n2025-09-03 19:25:15,492 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:25:26,723 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:25:26,776 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:25:26,777 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:25:26,777 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:25:26,777 - tests.conftest - INFO - Application state reset successfully\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.conftest:conftest.py:106 Application state reset successfully&#34;}], &#34;tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state&#34;, &#34;duration&#34;: &#34;00:00:17&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:17&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stderr setup -----------------------------\n2025-09-03 19:25:26,778 - tests.conftest - INFO - Test PASSED: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality\n2025-09-03 19:25:26,778 - tests.conftest - INFO - Finished test execution: tests/test_09_sort_products.py::TestSorting::test_sorting_functionality\n2025-09-03 19:25:26,780 - tests.conftest - INFO - Starting test execution: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state\n2025-09-03 19:25:26,780 - tests.conftest - INFO - Attempting login as standard_user\n2025-09-03 19:25:26,895 - pages.login_page - INFO - Navigated to SauceDemo login page\n2025-09-03 19:25:27,059 - pages.login_page - INFO - Entered username: standard_user\n2025-09-03 19:25:27,204 - pages.login_page - INFO - Entered password: [HIDDEN]\n2025-09-03 19:25:27,339 - pages.login_page - INFO - Clicked Login button\n2025-09-03 19:25:27,339 - pages.products_page - INFO - Products Page initialized\n2025-09-03 19:25:27,355 - tests.conftest - INFO - Login successful - Products page loaded\n\n------------------------------ Captured log setup ------------------------------\nINFO     tests.conftest:conftest.py:83 Attempting login as standard_user\nINFO     pages.login_page:login_page.py:19 Navigated to SauceDemo login page\nINFO     pages.login_page:login_page.py:26 Entered username: standard_user\nINFO     pages.login_page:login_page.py:29 Entered password: [HIDDEN]\nINFO     pages.login_page:login_page.py:32 Clicked Login button\nINFO     pages.products_page:products_page.py:30 Products Page initialized\nINFO     tests.conftest:conftest.py:93 Login successful - Products page loaded\n\n----------------------------- Captured stderr call -----------------------------\n2025-09-03 19:25:27,357 - tests.conftest - INFO - Test PASSED: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state\n2025-09-03 19:25:27,358 - tests.test_10_reset_app_state - INFO - ===== Starting Test: Reset App State =====\n2025-09-03 19:25:27,358 - tests.test_10_reset_app_state - INFO - Selecting 2 random products before reset test\n2025-09-03 19:25:27,805 - pages.products_page - INFO - Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.BEC7C78634C369EABD4419F1B5CA49BC.e.382&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.BEC7C78634C369EABD4419F1B5CA49BC.e.381&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}]\n2025-09-03 19:25:27,806 - tests.test_10_reset_app_state - INFO - Adding 2 products to cart before reset\n2025-09-03 19:25:27,918 - pages.products_page - INFO - Added to cart: Sauce Labs Bolt T-Shirt ($15.99)\n2025-09-03 19:25:28,009 - pages.products_page - INFO - Added to cart: Sauce Labs Bike Light ($9.99)\n2025-09-03 19:25:28,066 - pages.products_page - INFO - Cart count: 2\n2025-09-03 19:25:28,122 - pages.products_page - INFO - Cart count: 2\n2025-09-03 19:25:28,123 - tests.test_10_reset_app_state - INFO - Cart count before reset: 2\n2025-09-03 19:25:28,123 - tests.test_10_reset_app_state - INFO - Performing &amp;#x27;Reset App State&amp;#x27;\n2025-09-03 19:25:28,130 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:25:39,311 - pages.products_page - WARNING - Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\n2025-09-03 19:25:39,366 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:25:39,366 - pages.products_page - INFO - Cart is now empty\n2025-09-03 19:25:39,366 - pages.products_page - INFO - App state reset successfully\n2025-09-03 19:25:39,366 - tests.test_10_reset_app_state - INFO - Reset App State executed successfully\n2025-09-03 19:25:39,418 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:25:39,470 - pages.products_page - INFO - Cart count: 0\n2025-09-03 19:25:39,470 - tests.test_10_reset_app_state - INFO - Cart count after reset: 0\n2025-09-03 19:25:39,471 - tests.test_10_reset_app_state - INFO - ===== Test Passed: Reset App State functionality works correctly =====\n\n------------------------------ Captured log call -------------------------------\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:12 ===== Starting Test: Reset App State =====\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:17 Selecting 2 random products before reset test\nINFO     pages.products_page:products_page.py:184 Selected random products: [{&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bolt T-Shirt&amp;#x27;, &amp;#x27;price&amp;#x27;: 15.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.BEC7C78634C369EABD4419F1B5CA49BC.e.382&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 2}, {&amp;#x27;name&amp;#x27;: &amp;#x27;Sauce Labs Bike Light&amp;#x27;, &amp;#x27;price&amp;#x27;: 9.99, &amp;#x27;element&amp;#x27;: &amp;lt;selenium.webdriver.remote.webelement.WebElement (session=&amp;quot;947b80f30f8808bf5a56f68c23edc345&amp;quot;, element=&amp;quot;f.20FCC27C46429D008C2D2E29AEE1D53E.d.BEC7C78634C369EABD4419F1B5CA49BC.e.381&amp;quot;)&amp;gt;, &amp;#x27;index&amp;#x27;: 1}]\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:20 Adding 2 products to cart before reset\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bolt T-Shirt ($15.99)\nINFO     pages.products_page:products_page.py:192 Added to cart: Sauce Labs Bike Light ($9.99)\nINFO     pages.products_page:products_page.py:199 Cart count: 2\nINFO     pages.products_page:products_page.py:199 Cart count: 2\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:30 Cart count before reset: 2\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:34 Performing &amp;#x27;Reset App State&amp;#x27;\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:126 Element still visible after 10 seconds: (&amp;#x27;class name&amp;#x27;, &amp;#x27;bm-menu-wrap&amp;#x27;)\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:135 Cart is now empty\nINFO     pages.products_page:products_page.py:71 App state reset successfully\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:37 Reset App State executed successfully\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     pages.products_page:products_page.py:199 Cart count: 0\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:47 Cart count after reset: 0\nINFO     tests.test_10_reset_app_state:test_10_reset_app_state.py:50 ===== Test Passed: Reset App State functionality works correctly =====\n\n--------------------------- Captured stderr teardown ---------------------------\n2025-09-03 19:25:39,471 - tests.conftest - INFO - Test PASSED: tests/test_10_reset_app_state.py::TestResetAppState::test_reset_app_state\n2025-09-03 19:25:39,485 - pages.products_page - INFO - Opening menu for reset...\n2025-09-03 19:25:40,562 - pages.products_page - WARNING - Reset app state failed: Message: element click intercepted: Element &amp;lt;button type=&amp;quot;button&amp;quot; id=&amp;quot;react-burger-menu-btn&amp;quot; style=&amp;quot;position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;&amp;quot;&amp;gt;...&amp;lt;/button&amp;gt; is not clickable at point (30, 30). Other element would receive the click: &amp;lt;div class=&amp;quot;bm-menu&amp;quot; style=&amp;quot;height: 100%; box-sizing: border-box; overflow: auto;&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;\n  (Session info: chrome=140.0.7339.80)\nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9b4e40]\n\t(No symbol) [0x0x9b31a3]\n\t(No symbol) [0x0x9b0c57]\n\t(No symbol) [0x0x9afedd]\n\t(No symbol) [0x0x9a43c5]\n\t(No symbol) [0x0x9d101c]\n\t(No symbol) [0x0x9a3e24]\n\t(No symbol) [0x0x9d11d4]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n. Trying simple reset...\n2025-09-03 19:25:40,562 - pages.products_page - INFO - Performing simple reset (logout + login)...\n2025-09-03 19:25:40,562 - pages.products_page - INFO - Attempting to log out...\n2025-09-03 19:25:41,688 - pages.products_page - ERROR - Simple reset failed: Message: element click intercepted: Element &amp;lt;button type=&amp;quot;button&amp;quot; id=&amp;quot;react-burger-menu-btn&amp;quot; style=&amp;quot;position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;&amp;quot;&amp;gt;...&amp;lt;/button&amp;gt; is not clickable at point (30, 30). Other element would receive the click: &amp;lt;div class=&amp;quot;bm-menu&amp;quot; style=&amp;quot;height: 100%; box-sizing: border-box; overflow: auto;&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;\n  (Session info: chrome=140.0.7339.80)\nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9b4e40]\n\t(No symbol) [0x0x9b31a3]\n\t(No symbol) [0x0x9b0c57]\n\t(No symbol) [0x0x9afedd]\n\t(No symbol) [0x0x9a43c5]\n\t(No symbol) [0x0x9d101c]\n\t(No symbol) [0x0x9a3e24]\n\t(No symbol) [0x0x9d11d4]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n\n2025-09-03 19:25:41,688 - tests.conftest - INFO - Application state reset successfully\n2025-09-03 19:25:41,688 - tests.conftest - INFO - Closing browser instance\n\n---------------------------- Captured log teardown -----------------------------\nINFO     pages.products_page:products_page.py:63 Opening menu for reset...\nWARNING  pages.products_page:products_page.py:74 Reset app state failed: Message: element click intercepted: Element &amp;lt;button type=&amp;quot;button&amp;quot; id=&amp;quot;react-burger-menu-btn&amp;quot; style=&amp;quot;position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;&amp;quot;&amp;gt;...&amp;lt;/button&amp;gt; is not clickable at point (30, 30). Other element would receive the click: &amp;lt;div class=&amp;quot;bm-menu&amp;quot; style=&amp;quot;height: 100%; box-sizing: border-box; overflow: auto;&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;\n  (Session info: chrome=140.0.7339.80)\nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9b4e40]\n\t(No symbol) [0x0x9b31a3]\n\t(No symbol) [0x0x9b0c57]\n\t(No symbol) [0x0x9afedd]\n\t(No symbol) [0x0x9a43c5]\n\t(No symbol) [0x0x9d101c]\n\t(No symbol) [0x0x9a3e24]\n\t(No symbol) [0x0x9d11d4]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n. Trying simple reset...\nINFO     pages.products_page:products_page.py:80 Performing simple reset (logout + login)...\nINFO     pages.products_page:products_page.py:46 Attempting to log out...\nERROR    pages.products_page:products_page.py:90 Simple reset failed: Message: element click intercepted: Element &amp;lt;button type=&amp;quot;button&amp;quot; id=&amp;quot;react-burger-menu-btn&amp;quot; style=&amp;quot;position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;&amp;quot;&amp;gt;...&amp;lt;/button&amp;gt; is not clickable at point (30, 30). Other element would receive the click: &amp;lt;div class=&amp;quot;bm-menu&amp;quot; style=&amp;quot;height: 100%; box-sizing: border-box; overflow: auto;&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;\n  (Session info: chrome=140.0.7339.80)\nStacktrace:\n\tGetHandleVerifier [0x0xb8d283+66419]\n\tGetHandleVerifier [0x0xb8d2c4+66484]\n\t(No symbol) [0x0x964bd3]\n\t(No symbol) [0x0x9b4e40]\n\t(No symbol) [0x0x9b31a3]\n\t(No symbol) [0x0x9b0c57]\n\t(No symbol) [0x0x9afedd]\n\t(No symbol) [0x0x9a43c5]\n\t(No symbol) [0x0x9d101c]\n\t(No symbol) [0x0x9a3e24]\n\t(No symbol) [0x0x9d11d4]\n\t(No symbol) [0x0x9f28a1]\n\t(No symbol) [0x0x9d0e16]\n\t(No symbol) [0x0x9a25ce]\n\t(No symbol) [0x0x9a34a4]\n\tGetHandleVerifier [0x0xdd5ec3+2461619]\n\tGetHandleVerifier [0x0xdd0f46+2441270]\n\tGetHandleVerifier [0x0xbb6222+234258]\n\tGetHandleVerifier [0x0xba61e8+168664]\n\tGetHandleVerifier [0x0xbad18d+197245]\n\tGetHandleVerifier [0x0xb955d8+100040]\n\tGetHandleVerifier [0x0xb95772+100450]\n\tGetHandleVerifier [0x0xb7f72a+10266]\n\tBaseThreadInitThunk [0x0x75046839+25]\n\tRtlGetFullPathName_UEx [0x0x7732906f+1215]\n\tRtlGetFullPathName_UEx [0x0x7732903d+1165]\n\nINFO     tests.conftest:conftest.py:106 Application state reset successfully\nINFO     tests.conftest:conftest.py:73 Closing browser instance&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;SauceDemo Automation Test Report&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
+
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
+
+    get allData() {
+        return { ...this.data }
+    }
+
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > td')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > td')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_html_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`)?.classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
+
+
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
+
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+</html>
